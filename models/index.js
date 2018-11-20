@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 mongoose.set('debug', true);
-mongoose.connect('localhost:27017/todoapi');
+mongoose.connect('mongodb://localhost:27017/todoapi', { useNewUrlParser: true });
 
 mongoose.Promise = Promise;
 
