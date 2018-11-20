@@ -8,4 +8,10 @@ router.get('/', (req, res) => {
       .catch( err => res.send(err));
 });
 
+router.post("/", (req,res) => {
+      db.Todo.create(req.body)
+      .then( newTodo => res.status(201).json(newTodo))
+      .catch( err => res.send(err));
+})
+
 module.exports = router;
