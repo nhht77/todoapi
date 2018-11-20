@@ -26,4 +26,10 @@ router.put("/:id", (req, res) => {
       .catch( err => res.send(err) );
 })
 
+router.delete("/:id", (req, res) => {
+      db.Todo.findByIdAndDelete({_id: req.params.id})
+      .then( res.json({message: "It is deleted"}))
+      .catch( err => res.send(err));
+})
+
 module.exports = router;
