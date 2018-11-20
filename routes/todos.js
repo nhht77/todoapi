@@ -14,4 +14,10 @@ router.post("/", (req,res) => {
       .catch( err => res.send(err));
 })
 
+router.get("/:id", (req, res) => {
+      db.Todo.findById(req.params.id)
+      .then( Todo => res.json(Todo) )
+      .catch( err => res.send(err) );
+})
+
 module.exports = router;
