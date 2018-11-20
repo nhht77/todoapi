@@ -20,4 +20,10 @@ router.get("/:id", (req, res) => {
       .catch( err => res.send(err) );
 })
 
+router.put("/:id", (req, res) => {
+      db.Todo.findByIdAndUpdate({_id: req.params.id}, req.body )
+      .then( Todo => res.json(Todo) )
+      .catch( err => res.send(err) );
+})
+
 module.exports = router;
