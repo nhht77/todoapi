@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
 
-const apiURL = "api/todos";
+const apiURL = "api/todos/";
 
 class Todolist extends Component {
     constructor(props){
@@ -66,9 +66,38 @@ class Todolist extends Component {
         })
     }
 
+    deleteTodo(id) {
+        const DelURL = apiURL + id;
+        fetch(DelURL, {
+            method: 'delete'
+        })
+        .then( res => {
+            if(!res.ok){
+                if(res.status >= 400 && res.status < 500){
+                    return res.json().then( data => 
+                        { 
+                            let err = {errorMessage: data.message} 
+                            throw err;
+                        })
+                } else {
+                    let err = {errorMessage: 'Server is offline, please try again!'}
+                    throw err;
+                }
+            }
+        })
+        .then( ()  => {
+            const todos = this.state.todos.filter( todo => todo._id !== id );
+            this.setState({todos: todos })
+        })
+    }
+
   render() {
     const todos = this.state.todos.map( t => {
-        return <TodoItem key={t._id} {...t}/>
+        return <TodoItem 
+                key={t._id} 
+                {...t}
+                onDelete={this.deleteTodo.bind(this, t._id)}
+                />
     })
     return (
       <div>
