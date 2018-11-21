@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import TodoItem from './TodoItem';
 
 const apiURL = "api/todos";
 
@@ -35,9 +36,13 @@ class Todolist extends Component {
     }
 
   render() {
+    const todos = this.state.todos.map( t => {
+        return <TodoItem key={t._id} {...t}/>
+    })
     return (
       <div>
         <h1>Todo List</h1>
+        <ul>{todos}</ul>
       </div>
     )
   }
